@@ -72,7 +72,7 @@
     <div class="chat-container">
         <h2>ChatGPT (Lập trình viên: Thanh)</h2>
         <div class="chat-box" id="chatBox">
-            <div class="message bot-message">Xin chào! Tôi là ChatGPT. Hỏi gì tôi cũng trả lời và hỗ trợ bạn!</div>
+            <div class="message bot-message">Xin chào! Tôi là ChatGPT. Hãy hỏi tôi bất cứ điều gì!</div>
         </div>
         <div class="input-area">
             <input type="text" id="userInput" placeholder="Nhập tin nhắn của bạn...">
@@ -81,6 +81,27 @@
     </div>
 
     <script>
+        function getBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+
+            // Các phản hồi cơ bản dựa trên từ khóa
+            if (message.includes("xin chào") || message.includes("hi")) {
+                return "Chào bạn! Bạn khỏe không?";
+            } else if (message.includes("thời tiết")) {
+                return "Tôi không có dữ liệu thời tiết thực tế, nhưng bạn có thể hỏi tôi về cách kiểm tra thời tiết!";
+            } else if (message.includes("tên") && message.includes("bạn")) {
+                return "Tôi là ChatGPT, được tạo bởi Thanh!";
+            } else if (message.includes("làm sao") || message.includes("cách nào")) {
+                return "Bạn có thể nói rõ hơn không? Tôi sẽ cố gắng hướng dẫn bạn!";
+            } else if (message.includes("cảm ơn")) {
+                return "Không có gì! Rất vui được giúp bạn.";
+            } else if (message.includes("hôm nay")) {
+                return "Hôm nay là ngày " + new Date().toLocaleDateString('vi-VN') + ". Bạn có kế hoạch gì không?";
+            } else {
+                return "Tôi không chắc hiểu ý bạn, nhưng tôi ở đây để giúp! Bạn có thể hỏi lại không?";
+            }
+        }
+
         function sendMessage() {
             const userInput = document.getElementById('userInput');
             const chatBox = document.getElementById('chatBox');
@@ -108,7 +129,7 @@
 
                     const botMessage = document.createElement('div');
                     botMessage.className = 'message bot-message';
-                    botMessage.textContent = 'Có căn cọt';
+                    botMessage.textContent = getBotResponse(message);
                     chatBox.appendChild(botMessage);
 
                     // Cuộn xuống cuối chat sau khi thêm tin nhắn bot
