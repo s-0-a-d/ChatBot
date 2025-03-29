@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT (Lập trình viên: Thanh)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fafafa;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #28a745;
+            color: white;
+        }
+        .typing {
+            color: #888;
+            font-style: italic;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>ChatGPT (Lập trình viên: Thanh)</h2>
+        <div class="chat-box" id="chatBox">
+            <div class="message bot-message">Xin chào! Tôi là ChatGPT. Hỏi gì tôi cũng trả lời và hỗ trợ bạn!</div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn của bạn...">
+            <button onclick="sendMessage()">Gửi</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+            const message = userInput.value.trim();
+
+            if (message !== '') {
+                // Thêm tin nhắn của người dùng
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user-message';
+                userMessage.textContent = message;
+                chatBox.appendChild(userMessage);
+
+                // Thêm thông báo "Đang làm việc..."
+                const typingMessage = document.createElement('div');
+                typingMessage.className = 'message typing';
+                typingMessage.textContent = 'Đang làm việc...';
+                chatBox.appendChild(typingMessage);
+
+                // Cuộn xuống cuối chat
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Sau 2 giây, xóa "Đang làm việc..." và thêm phản hồi bot
+                setTimeout(() => {
+                    chatBox.removeChild(typingMessage); // Xóa thông báo "Đang làm việc..."
+
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot-message';
+                    botMessage.textContent = 'Có căn cọt';
+                    chatBox.appendChild(botMessage);
+
+                    // Cuộn xuống cuối chat sau khi thêm tin nhắn bot
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 2000);
+
+                // Xóa input
+                userInput.value = '';
+            }
+        }
+
+        // Gửi tin nhắn khi nhấn Enter
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
